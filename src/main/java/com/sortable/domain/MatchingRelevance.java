@@ -2,9 +2,9 @@ package com.sortable.domain;
 
 public enum MatchingRelevance {
 
-	MODEL(2),
-
-	MODEL_AND_FAMILY(2),
+	MODEL_AND_FAMILY(0),
+	
+	MODEL(1),
 
 	MODEL_AND_NOT_FAMILY(2),
 

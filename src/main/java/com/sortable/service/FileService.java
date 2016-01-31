@@ -11,11 +11,24 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
 import com.sortable.domain.Result;
 
 public class FileService {
 
 	public <T> List<T> readFile(String file, Class<T> classOfT) {
+		return readFile(file, classOfT, new Gson());
+	}
+
+	public <T> List<T> readFile(String file, Class<T> classOfT,
+			JsonDeserializer<T> jsonDeserializer) {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(classOfT, jsonDeserializer);
+		return readFile(file, classOfT, gsonBuilder.create());
+	}
+
+	private <T> List<T> readFile(String file, Class<T> classOfT, Gson gson) {
 
 		List<T> objects = new ArrayList<T>();
 
@@ -27,7 +40,6 @@ public class FileService {
 			while (true) {
 				String line = input.nextLine();
 
-				Gson gson = new Gson();
 				T obj = gson.fromJson(line, classOfT);
 
 				objects.add(obj);
@@ -57,13 +69,13 @@ public class FileService {
 				bw.write(gson.toJson(result));
 				bw.write("\n");
 			}
-			
+
 			bw.close();
 
 		} catch (IOException e) {
 			System.err.println("I/O exception on writing file: results.txt");
 			throw new RuntimeException(e);
-		} 
+		}
 
 	}
 

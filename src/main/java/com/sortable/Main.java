@@ -16,8 +16,7 @@ public class Main {
 		MatchingService matchingService = new MatchingService(productService,
 				listingService);
 		Result[] results = matchingService.match();
-		
+
 		fileService.writeFile(results);
 	}
-
 }

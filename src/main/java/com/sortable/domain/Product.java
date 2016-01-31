@@ -7,23 +7,36 @@ public class Product {
 	private String family;
 	private String model;
 	private String announcedDate;
-	
+
+	public Product(String product_name, String manufacturer, String family,
+			String model, String announcedDate) {
+		this.product_name = product_name;
+		this.manufacturer = manufacturer;
+		this.family = family;
+		this.model = model;
+		this.announcedDate = announcedDate;
+	}
+
 	public String getName() {
 		return product_name;
 	}
-	
+
 	public String getManufacturer() {
 		return manufacturer;
 	}
-	
+
 	public String getFamily() {
 		return family;
 	}
-	
+
 	public String getModel() {
 		return model;
 	}
-	
+
+	public String getAnnouncedDate() {
+		return announcedDate;
+	}
+
 	public boolean hasFamily() {
 		return getFamily() != null;
 	}
