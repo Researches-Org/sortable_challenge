@@ -19,7 +19,7 @@ The project uses maven 3.1.1, java version 1.8, gson-2.5.jar.
 
 ## Build
 
-Execute the following command to generate the sortable_challenge.jar in the target folder.
+Execute the following command to generate the executable jar sortable_challenge.jar in the target folder. Note that there is already this executable jar in the project root directory.
 
 <pre>
 mvn clean package
