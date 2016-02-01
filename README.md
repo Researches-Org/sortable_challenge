@@ -17,15 +17,22 @@ is matched with at most one product.
 
 The project uses maven 3.1.1, java version 1.8, gson-2.5.jar.
 
+## Build
+
+Execute the following command to generate the sortable_challenge.jar in the target folder.
+
+<pre>
+mvn clean package
+</pre> 
+
 ## Execution
 
-Execute the program using the sh file:
+Execute the program using the sh file located in the project root directory (the files listings.txt, products.txt and sortable_challenge.jar must be in this directory):
 
 <pre>
 ./sortable_challenge.sh
 </pre>
 
-The files listings.txt and products.txt must be in the current directory.
 The solution writes the file results.txt also in the current directory.
 
 ## Solution
@@ -49,8 +56,20 @@ The matching relevance gives more relevance to the following matchings (from the
 * Family and not Model: The family is presented in the listing title and the model is not presented in the listing title.
 
 The algorithm chooses the top one product for each listing, if there is one, based on the rules above. It considers
-that the following matchings have high precision: 
+that only the following matchings have high precision trying to avoid false positives: 
 
 * Model and Family
 * Model
 * Model and not Family
+
+If The Top One Product for a listing is found, the algorithm updates the result map, that is, the listing object is added to the list of listing objects associated with the result object that represents the product found. 
+
+At the end, the file results.txt is generated with all the results objects. Only products that have been matched to some listing are presented in the results.txt file.
+
+## Time Complexty
+Considering a fixed list of products the algorithms executes in O(n) where n is the number of listing objects presented in the listings.txt file. If the number of products can increase as much as the number of listing objects, so the time complexity is O(nm), where n is the number of listing objects and m is the number of products.
+
+## Observation
+The algorithms uses the structure of the elements been searched, in this case, products, to give relevance to search terms based on their location in the
+searched elements (products), for example, the highest relevance is given to the product name, since it is a unique identifier for product. The second highest
+relevance is given to the product model and family. Other techniques not applied here could also be used, such as, probability and bayesian filters.   

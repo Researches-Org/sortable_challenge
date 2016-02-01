@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>sortable_challenge</groupId>
 	<artifactId>sortable_challenge</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<build>
 		<plugins>
 			<plugin>
@@ -26,7 +26,18 @@
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
+					<finalName>sortable_challenge</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id> 
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

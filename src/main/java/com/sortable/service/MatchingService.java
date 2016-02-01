@@ -181,26 +181,9 @@ public class MatchingService {
 			return true;
 		}
 
-		boolean contains = source.startsWith(pattern + " ")
+		return source.startsWith(pattern + " ")
 				|| source.endsWith(" " + pattern)
 				|| source.contains(" " + pattern + " ");
 
-		if (contains) {
-			return true;
-		}
-
-//		int index = source.indexOf(pattern);
-//
-//		int indexNextChar = index + pattern.length();
-//
-//		if (index != -1 && indexNextChar == source.length()) {
-//			return true;
-//		}
-//
-//		if (index != -1 && !Character.isDigit(source.charAt(indexNextChar))) {
-//			return true;
-//		}
-
-		return false;
 	}
 }
