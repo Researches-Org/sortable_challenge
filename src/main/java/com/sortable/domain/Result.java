@@ -6,11 +6,11 @@ import java.util.Set;
 public class Result {
 
 	private String product_name;
-	private Set<Listing> listingsSet;
+	private Set<Listing> listings;
 
 	public Result(String productName) {
 		this.product_name = productName;
-		this.listingsSet = new HashSet<Listing>();
+		this.listings = new HashSet<Listing>();
 	}
 
 	public String getProductName() {
@@ -18,15 +18,15 @@ public class Result {
 	}
 
 	public void add(Listing listing) {
-		listingsSet.add(listing);
+		listings.add(listing);
 	}
 
 	public boolean isEmpty() {
-		return listingsSet.isEmpty();
+		return listings.isEmpty();
 	}
 
 	public void remove(Listing listing) {
-		listingsSet.remove(listing);
+		listings.remove(listing);
 	}
 
 }
