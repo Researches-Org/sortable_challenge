@@ -6,7 +6,7 @@ public class Listing {
 	private String manufacturer;
 	private String currency;
 	private String price;
-
+	
 	public Listing(String title, String manufacturer, String currency,
 			String price) {
 		this.title = title;
@@ -30,5 +30,12 @@ public class Listing {
 	public String getPrice() {
 		return price;
 	}
-
+	
+	public String getTitleLower() {
+		return title.toLowerCase();
+	}
+	
+	public String getManufacturerLower() {
+		return manufacturer.toLowerCase();
+	}
 }

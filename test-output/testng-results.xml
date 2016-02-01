@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="788" started-at="2016-02-01T07:15:12Z" finished-at="2016-02-01T07:15:12Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="788" started-at="2016-02-01T07:15:12Z" finished-at="2016-02-01T07:15:12Z">
+      <class name="com.sortable.service.MatchingServiceTest">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.sortable.service.MatchingServiceTest@de0a01f]" name="setUp" is-config="true" duration-ms="8" started-at="2016-01-31T23:15:12Z" finished-at="2016-01-31T23:15:12Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="matchUsingIndex()[pri:0, instance:com.sortable.service.MatchingServiceTest@de0a01f]" name="matchUsingIndex" duration-ms="770" started-at="2016-01-31T23:15:12Z" finished-at="2016-01-31T23:15:12Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- matchUsingIndex -->
+      </class> <!-- com.sortable.service.MatchingServiceTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

@@ -8,6 +8,11 @@ public class Product {
 	private String model;
 	private String announcedDate;
 
+	private String nameLower;
+	private String manufacturerLower;
+	private String familyLower;
+	private String modelLower;
+
 	public Product(String product_name, String manufacturer, String family,
 			String model, String announcedDate) {
 		this.product_name = product_name;
@@ -15,6 +20,12 @@ public class Product {
 		this.family = family;
 		this.model = model;
 		this.announcedDate = announcedDate;
+
+		this.nameLower = this.product_name.toLowerCase();
+		this.manufacturerLower = this.manufacturer.toLowerCase();
+		this.modelLower = this.model.toLowerCase();
+		this.familyLower = this.family != null ? this.family.toLowerCase()
+				: null;
 	}
 
 	public String getName() {
@@ -39,6 +50,22 @@ public class Product {
 
 	public boolean hasFamily() {
 		return getFamily() != null;
+	}
+
+	public String getNameLower() {
+		return nameLower;
+	}
+
+	public String getManufacturerLower() {
+		return manufacturerLower;
+	}
+
+	public String getModelLower() {
+		return modelLower;
+	}
+
+	public String getFamilyLower() {
+		return familyLower;
 	}
 
 	@Override

@@ -1,7 +1,11 @@
 package com.sortable.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.sortable.domain.Listing;
 import com.sortable.domain.MatchingRelevance;
@@ -38,6 +42,201 @@ public class MatchingService {
 		}
 
 		return results.values().toArray(new Result[] {});
+	}
+
+	public Result[] matchUsingIndex() {
+		Product[] products = productService.getProducts();
+		Listing[] listings = listingService.getListings();
+
+		Map<String, Set<Listing>> indexOfTermsToListings = createIndexOfTermsToListings(listings);
+
+		return matchProducts(products, indexOfTermsToListings);
+
+	}
+
+	private Map<String, Set<Listing>> createIndexOfTermsToListings(
+			Listing[] listings) {
+		Map<String, Set<Listing>> indexOfTerms = new HashMap<String, Set<Listing>>();
+
+		for (Listing listing : listings) {
+			String[] terms = listing.getTitleLower().split(
+					"\\s|\\|/|\\(|\\)|\\[|\\]|\\{|\\}|\\,|\\;|\\:");
+
+			for (String term : terms) {
+				if (!indexOfTerms.containsKey(term)) {
+					indexOfTerms.put(term, new HashSet<Listing>());
+				}
+				indexOfTerms.get(term).add(listing);
+			}
+		}
+
+		return indexOfTerms;
+	}
+
+	private Result[] matchProducts(Product[] products,
+			Map<String, Set<Listing>> indexOfTermsToListings) {
+
+		List<Result> results = new ArrayList<Result>();
+
+		for (Product product : products) {
+			Result result = new Result(product.getName());
+
+			if (indexOfTermsToListings.containsKey(product.getNameLower())) {
+
+				for (Listing listing : indexOfTermsToListings.get(product
+						.getNameLower())) {
+
+					if (manufacturerMatches(product, listing)) {
+						result.add(listing);
+					}
+				}
+			}
+
+			for (Listing listing : possibleMatchingsWithModel(product,
+					indexOfTermsToListings)) {
+				if (manufacturerMatches(product, listing)) {
+					result.add(listing);
+				}
+			}
+
+			if (!result.isEmpty()) {
+				results.add(result);
+			}
+		}
+
+		return results.toArray(new Result[] {});
+
+	}
+
+	private boolean manufacturerMatches(Product product, Listing listing) {
+		return (listing.getManufacturerLower().contains(
+				product.getManufacturerLower()) || product
+				.getManufacturerLower()
+				.contains(listing.getManufacturerLower()));
+	}
+
+	private Set<Listing> possibleMatchingsWithModel(Product product,
+			Map<String, Set<Listing>> indexOfTermsToListings) {
+
+		String model = product.getModelLower();
+
+		Set<Listing> result = new HashSet<Listing>();
+
+		if (indexOfTermsToListings.containsKey(model)) {
+			result.addAll(indexOfTermsToListings.get(model));
+		}
+
+		String modelWithoutSpaces = model.replace(" ", "");
+
+		if (indexOfTermsToListings.containsKey(modelWithoutSpaces)) {
+			result.addAll(indexOfTermsToListings.get(modelWithoutSpaces));
+		}
+
+		String modelWithoutDashes = model.replace("-", "");
+
+		if (indexOfTermsToListings.containsKey(modelWithoutDashes)) {
+			result.addAll(indexOfTermsToListings.get(modelWithoutDashes));
+		}
+
+		String modelWithoutUnderline = model.replace("_", "");
+
+		if (indexOfTermsToListings.containsKey(modelWithoutUnderline)) {
+			result.addAll(indexOfTermsToListings.get(modelWithoutUnderline));
+		}
+
+		String modelWithoutSpacesAndDashes = model.replace(" ", "").replace(
+				"-", "");
+
+		if (indexOfTermsToListings.containsKey(modelWithoutSpacesAndDashes)) {
+			result.addAll(indexOfTermsToListings
+					.get(modelWithoutSpacesAndDashes));
+		}
+
+		String modelWithoutSpacesAndUnderlines = model.replace(" ", "")
+				.replace("_", "");
+
+		if (indexOfTermsToListings.containsKey(modelWithoutSpacesAndUnderlines)) {
+			result.addAll(indexOfTermsToListings
+					.get(modelWithoutSpacesAndUnderlines));
+		}
+
+		String modelWithoutDashesAndUnderlines = model.replace("-", "")
+				.replace("_", "");
+
+		if (indexOfTermsToListings.containsKey(modelWithoutDashesAndUnderlines)) {
+			result.addAll(indexOfTermsToListings
+					.get(modelWithoutDashesAndUnderlines));
+		}
+
+		String modelWithoutSpacesDashesAndUnderlines = model.replace(" ", "")
+				.replace("-", "").replace("_", "");
+
+		if (indexOfTermsToListings
+				.containsKey(modelWithoutSpacesDashesAndUnderlines)) {
+			result.addAll(indexOfTermsToListings
+					.get(modelWithoutSpacesDashesAndUnderlines));
+		}
+
+		String modelWithDashes = model.replace(" ", "-").replace("_", "-");
+
+		if (indexOfTermsToListings.containsKey(modelWithDashes)) {
+			result.addAll(indexOfTermsToListings.get(modelWithDashes));
+		}
+
+		String modelWithUnderline = model.replace(" ", "_").replace("-", "_");
+
+		if (indexOfTermsToListings.containsKey(modelWithUnderline)) {
+			result.addAll(indexOfTermsToListings.get(modelWithUnderline));
+		}
+
+		String modelWithSpaces = model.replace("-", " ").replace("_", " ");
+
+		if (indexOfTermsToListings.containsKey(modelWithSpaces)) {
+			result.addAll(indexOfTermsToListings.get(modelWithSpaces));
+		}
+
+		if (model.indexOf(" ") != -1) {
+			result.addAll(listingsWithAllModelTerms(model,
+					indexOfTermsToListings));
+		}
+
+		return result;
+	}
+
+	private Set<Listing> listingsWithAllModelTerms(String model,
+			Map<String, Set<Listing>> indexOfTermsToListings) {
+		Set<Listing> result = new HashSet<Listing>();
+
+		model = model.replace("-", " ").replace("_", " ");
+		
+		String[] modelTerms = model.split("\\s");
+
+		for (int i = 0; i < modelTerms.length; i++) {
+			if (indexOfTermsToListings.containsKey(modelTerms[i])) {
+
+				if (i == 0) {
+					result.addAll(indexOfTermsToListings.get(modelTerms[i]));
+				} else {
+					result.retainAll(indexOfTermsToListings.get(modelTerms[i]));
+				}
+
+			} else {
+				return new HashSet<Listing>();
+			}
+		}
+
+//		for (Listing listing : result) {
+//			String titleLower = listing.getTitleLower();
+//		
+//			
+//			
+//			for (String modelTerm : modelTerms) {
+//				titleLower.indexOf(modelTerm);
+//			}
+//			
+//		}
+
+		return result;
 	}
 
 	private Product searchTopOneProduct(Listing listing, Product[] products) {
