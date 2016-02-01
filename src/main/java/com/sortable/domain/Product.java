@@ -23,7 +23,7 @@ public class Product {
 
 		this.nameLower = this.product_name.toLowerCase();
 		this.manufacturerLower = this.manufacturer.toLowerCase();
-		this.modelLower = this.model.toLowerCase();
+		this.modelLower = this.model.toLowerCase().replaceAll("[^a-z0-9]", " ");
 		this.familyLower = this.family != null ? this.family.toLowerCase()
 				: null;
 	}

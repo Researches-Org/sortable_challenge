@@ -59,8 +59,7 @@ public class MatchingService {
 		Map<String, Set<Listing>> indexOfTerms = new HashMap<String, Set<Listing>>();
 
 		for (Listing listing : listings) {
-			String[] terms = listing.getTitleLower().split(
-					"\\s|\\|/|\\(|\\)|\\[|\\]|\\{|\\}|\\,|\\;|\\:");
+			String[] terms = listing.getTitleLower().split(" ");
 
 			for (String term : terms) {
 				if (!indexOfTerms.containsKey(term)) {
@@ -124,69 +123,6 @@ public class MatchingService {
 			result.addAll(indexOfTermsToListings.get(modelWithoutSpaces));
 		}
 
-		String modelWithoutDashes = model.replace("-", "");
-
-		if (indexOfTermsToListings.containsKey(modelWithoutDashes)) {
-			result.addAll(indexOfTermsToListings.get(modelWithoutDashes));
-		}
-
-		String modelWithoutUnderline = model.replace("_", "");
-
-		if (indexOfTermsToListings.containsKey(modelWithoutUnderline)) {
-			result.addAll(indexOfTermsToListings.get(modelWithoutUnderline));
-		}
-
-		String modelWithoutSpacesAndDashes = model.replace(" ", "").replace(
-				"-", "");
-
-		if (indexOfTermsToListings.containsKey(modelWithoutSpacesAndDashes)) {
-			result.addAll(indexOfTermsToListings
-					.get(modelWithoutSpacesAndDashes));
-		}
-
-		String modelWithoutSpacesAndUnderlines = model.replace(" ", "")
-				.replace("_", "");
-
-		if (indexOfTermsToListings.containsKey(modelWithoutSpacesAndUnderlines)) {
-			result.addAll(indexOfTermsToListings
-					.get(modelWithoutSpacesAndUnderlines));
-		}
-
-		String modelWithoutDashesAndUnderlines = model.replace("-", "")
-				.replace("_", "");
-
-		if (indexOfTermsToListings.containsKey(modelWithoutDashesAndUnderlines)) {
-			result.addAll(indexOfTermsToListings
-					.get(modelWithoutDashesAndUnderlines));
-		}
-
-		String modelWithoutSpacesDashesAndUnderlines = model.replace(" ", "")
-				.replace("-", "").replace("_", "");
-
-		if (indexOfTermsToListings
-				.containsKey(modelWithoutSpacesDashesAndUnderlines)) {
-			result.addAll(indexOfTermsToListings
-					.get(modelWithoutSpacesDashesAndUnderlines));
-		}
-
-		String modelWithDashes = model.replace(" ", "-").replace("_", "-");
-
-		if (indexOfTermsToListings.containsKey(modelWithDashes)) {
-			result.addAll(indexOfTermsToListings.get(modelWithDashes));
-		}
-
-		String modelWithUnderline = model.replace(" ", "_").replace("-", "_");
-
-		if (indexOfTermsToListings.containsKey(modelWithUnderline)) {
-			result.addAll(indexOfTermsToListings.get(modelWithUnderline));
-		}
-
-		String modelWithSpaces = model.replace("-", " ").replace("_", " ");
-
-		if (indexOfTermsToListings.containsKey(modelWithSpaces)) {
-			result.addAll(indexOfTermsToListings.get(modelWithSpaces));
-		}
-
 		if (model.indexOf(" ") != -1) {
 			result.addAll(listingsWithAllModelTerms(model,
 					indexOfTermsToListings));
@@ -199,10 +135,7 @@ public class MatchingService {
 			Map<String, Set<Listing>> indexOfTermsToListings) {
 		Set<Listing> result = new HashSet<Listing>();
 
-		// TODO: verify why it reduces matching
-//		model = model.replace("-", " ").replace("_", " ");
-
-		String[] modelTerms = model.split("\\s");
+		String[] modelTerms = model.split(" ");
 
 		for (int i = 0; i < modelTerms.length; i++) {
 			if (indexOfTermsToListings.containsKey(modelTerms[i])) {
