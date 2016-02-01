@@ -48,7 +48,7 @@ There must be a matching between the listing manufacturer and the product manufa
 If there is a matching between the listing manufacturer and the product manufacturer, so, the model and family are considered using the matching relevance rules described above. 
 
 The solution also creates an index of terms found in the titles of the listing objects. So it uses an off-line technique because it already has access to the
-data sets of listings and products objects.
+data sets of listings and products objects allowing the index creation.
 
 The index of terms is a map object that maps terms found in the titles to listing objects. Each listing object has a method that returns the title string in lower case with only digits, letters and spaces. It uses regex for this purpose.
 
