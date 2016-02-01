@@ -207,7 +207,11 @@ public class MatchingService {
 			Map<String, Set<Listing>> indexOfTermsToListings) {
 		Set<Listing> result = new HashSet<Listing>();
 
+		System.out.println(">>>BEFORE>>>"+ model);
+		
 		model = model.replace("-", " ").replace("_", " ");
+
+		System.out.println(">>>AFTER>>>>>>>>"+ model);
 		
 		String[] modelTerms = model.split("\\s");
 
@@ -224,17 +228,6 @@ public class MatchingService {
 				return new HashSet<Listing>();
 			}
 		}
-
-//		for (Listing listing : result) {
-//			String titleLower = listing.getTitleLower();
-//		
-//			
-//			
-//			for (String modelTerm : modelTerms) {
-//				titleLower.indexOf(modelTerm);
-//			}
-//			
-//		}
 
 		return result;
 	}
