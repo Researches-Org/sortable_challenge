@@ -106,4 +106,4 @@ So in the average case, the time complexity of the algorithm is near to O(n + m)
 ## Observation
 The algorithms uses the structure of the elements been searched, in this case, products, to give relevance to search terms based on their location in the
 searched elements (products), for example, the highest relevance is given when the product model and family are found in a listing title. It also uses the creation
-of the index for optimization purposes. Other more complex techniques not applied here could be used, such as, probability and bayesian filters.
+of the index for optimization purposes.
