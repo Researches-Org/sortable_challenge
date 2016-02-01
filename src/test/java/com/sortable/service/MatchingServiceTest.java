@@ -28,12 +28,12 @@ public class MatchingServiceTest {
 		fileService.writeFile(matchingService.match());
 	}
 
-	@Test(enabled = false)
+	@Test
 	public void matchUsingIndex() {
 		fileService.writeFile(matchingService.matchUsingIndex());
 	}
 	
-	@Test
+	@Test(enabled = false)
 	public void testRegex() {//"\\s|\\\\|/|\\(|\\)|\\[|\\]|\\{|\\}|\\,|\\;|\\:"
 		System.out.println(Arrays.toString("a b c d e".split("\\s")));
 		System.out.println(Arrays.toString("a\\b\\c\\d\\e".split("\\\\")));
@@ -49,6 +49,7 @@ public class MatchingServiceTest {
 		System.out.println(Arrays.toString("a:b:c:d:e".split("\\:")));
 		System.out.println(Arrays.toString("a-b-c-d-e".split("\\-")));
 		System.out.println(Arrays.toString("a_b_c_d_e".split("\\_")));
+		System.out.println(Arrays.toString("a.b.c.d.e".split("\\.")));
 		System.out.println(Arrays.toString("a b c d e a\\b\\c\\d\\e\\a/b/c/d/e/a(b(c(d(e(a)b)c)d)e)a[b[c[d[e[a]b]c]d]e]a{b{c{d{e{a}b}c}d}e}a,b,c,d,e,a;b;c;d;e;a:b:c:d:e:a-b-c-d-e-a_b_c_d_e".split("\\s|\\\\|/|\\(|\\)|\\[|\\]|\\{|\\}|\\,|\\;|\\:|\\-|\\_")));
 		
 	}

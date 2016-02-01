@@ -77,24 +77,16 @@ public class MatchingService {
 			Map<String, Set<Listing>> indexOfTermsToListings) {
 
 		List<Result> results = new ArrayList<Result>();
+		
+		Set<Listing> listingsMatched = new HashSet<Listing>();
 
 		for (Product product : products) {
 			Result result = new Result(product.getName());
 
-			if (indexOfTermsToListings.containsKey(product.getNameLower())) {
-
-				for (Listing listing : indexOfTermsToListings.get(product
-						.getNameLower())) {
-
-					if (manufacturerMatches(product, listing)) {
-						result.add(listing);
-					}
-				}
-			}
-
 			for (Listing listing : possibleMatchingsWithModel(product,
 					indexOfTermsToListings)) {
-				if (manufacturerMatches(product, listing)) {
+				if (!listingsMatched.contains(listing) && manufacturerMatches(product, listing)) {
+					listingsMatched.add(listing);
 					result.add(listing);
 				}
 			}
@@ -207,12 +199,9 @@ public class MatchingService {
 			Map<String, Set<Listing>> indexOfTermsToListings) {
 		Set<Listing> result = new HashSet<Listing>();
 
-		System.out.println(">>>BEFORE>>>"+ model);
-		
-		model = model.replace("-", " ").replace("_", " ");
+		// TODO: verify why it reduces matching
+//		model = model.replace("-", " ").replace("_", " ");
 
-		System.out.println(">>>AFTER>>>>>>>>"+ model);
-		
 		String[] modelTerms = model.split("\\s");
 
 		for (int i = 0; i < modelTerms.length; i++) {
