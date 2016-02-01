@@ -83,7 +83,7 @@ When trying to find possible listing objects that match to a specific product, t
 
 * Find listings that have the exact product term (mode/family).
 * Find listings that have the product term (model/family) without spaces.
-* Find listings that have all the terms of the product term (model/family), when the product term has spaces in it.
+* Find listings that have all the terms of the product term (model/family), when the product term has white spaces.
 
 At the end, the file results.txt is generated with all the results objects. Only products that have been matched to some listing are presented in the results.txt file.
 
@@ -92,17 +92,18 @@ To create the index, the time complexity is O(n), where n is the number of listi
 To match the products to listing objects, the worst case time complexity is O(nm), where n is the number of listing objects and m is the number of products.
 So, the worst case time complexity of the algorithm is O(nm). This happens when all products match to all listing objects. However, the probability for the worst case occurs is really small and an average case analysis is necessary.
 
-To note that the probability of the worst case is really small, consider the following reasoning: 
+Let's do here a very limited average case analysis in order to note that the probability of the worst case is really small. Consider the following reasoning: 
 
 * The greater the number of different terms in one title listing, the greater the likelihood that this listing corresponds to all products.
-* Consider t the number of all possible terms to be used in a title listing, off course it is a big number. 
-* Consider x the number of terms in a listing title, off course x is much more smaller than t.
-* The probability that one of these x terms be a product term (model or family) is x/t, each is a small number.
-* The probability that a listing matches all products is the probability that it matches the first product and the second and the third, and so on. So it is x/t to the m power where m is the number of products, which is even smaller than x/t.
-* Finally, the probability that all listings match all products is the probability that the first listing matches all products, the second listing matches all products, and so on.  So it is x/t to the n*m power, a really small number, where n is the number of listings and m the number of products.
+* Consider t the number of all possible terms to be used in a title listing, it is a big number when compared with the number of terms in a listing title. 
+* Consider x the number of terms in a listing title, x is much more smaller than t.
+* The probability that one of these x terms be a product term (model or family) is x/t, which is a small number.
+* The probability that a listing matches all products is the probability that it matches the first product and the second and the third, and so on. So it is x/t to the mth power where m is the number of products, which is even smaller than x/t.
+* Finally, the probability that all listings match all products is the probability that the first listing matches all products, the second listing matches all products, and so on.  So it is x/t to the (n*m)th power, a really small number, where n is the number of listings and m the number of products.
 
 So in the average case, the time complexity of the algorithm is near to O(n + m).
 
 ## Observation
 The algorithms uses the structure of the elements been searched, in this case, products, to give relevance to search terms based on their location in the
-searched elements (products), for example, The highest relevance is given when the product model and family are found in a listing title. Other more complex techniques not applied here could also be used, such as, probability and bayesian filters.
+searched elements (products), for example, the highest relevance is given when the product model and family are found in a listing title. It also uses the creation
+of the index for optimization purposes. Other more complex techniques not applied here could be used, such as, probability and bayesian filters.
