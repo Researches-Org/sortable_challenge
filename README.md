@@ -85,7 +85,7 @@ When trying to find possible listing objects that match to a specific product, t
 * Find listings that have the product term (model/family) without spaces.
 * Find listings that have all the terms of the product term (model/family), when the product term has white spaces.
 
-When a product term (model/family) has no spaces, to try to maximize the number of matches, the algorithm generate two sub-terms of the term for each position p from 1 to term.length() - 3, each two sub-terms are the substrings from 0 to index p and from index p + 1 to the end. Each sub-term will have at least two characters. Then, the algorithm finds all listings that contains each of these two sub-terms. For instance, the term DWFWE will have the following two sub-terms, and for each pair the algorithm will try to find the listings.
+When a product term (model/family) has no spaces, to try to maximize the number of matches, the algorithm generates two sub-terms of the term for each position p from 1 to term.length() - 3, each two sub-terms are the substrings from 0 to index p and from index p + 1 to the end. Each sub-term will have at least two characters. Then, the algorithm finds all listings that contains each of these two sub-terms. For instance, the term DWFWE will have the following two sub-terms, and for each pair the algorithm will try to find the listings.
 
 * DW and FWE
 * DWF and WE
@@ -99,8 +99,8 @@ So, the worst case time complexity of the algorithm is O(nm). This happens when 
 
 Let's do here a very limited average case analysis in order to note that the probability of the worst case is really small. Consider the following reasoning: 
 
-* The greater the number of different terms in one title listing, the greater the likelihood that this listing corresponds to all products.
-* Consider t the number of all possible terms to be used in a title listing, it is a big number when compared with the number of terms in a listing title. 
+* The greater the number of different terms in one listing title, the greater the likelihood that this listing corresponds to all products.
+* Consider t the number of all possible terms to be used in a listing title, it is a big number when compared with the number of terms in a listing title. 
 * Consider x the number of terms in a listing title, x is much more smaller than t.
 * The probability that one of these x terms be a product term (model or family) is x/t, which is a small number.
 * The probability that a listing matches all products is the probability that it matches the first product and the second and the third, and so on. So it is x/t to the mth power where m is the number of products, which is even smaller than x/t.
@@ -109,6 +109,6 @@ Let's do here a very limited average case analysis in order to note that the pro
 So in the average case, the time complexity of the algorithm is near to O(n + m).
 
 ## Observation
-The algorithms uses the structure of the elements been searched, in this case, products, to give relevance to search terms based on their location in the
+The algorithm uses the structure of the elements being searched, in this case, products, to give relevance to search terms based on their locations in the
 searched elements (products), for example, the highest relevance is given when the product model and family are found in a listing title. It also uses the creation
 of the index for optimization purposes.
