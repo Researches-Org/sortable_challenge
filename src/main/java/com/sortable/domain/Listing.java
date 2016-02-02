@@ -32,7 +32,7 @@ public class Listing {
 	}
 	
 	public String getTitleLower() {
-		return title.toLowerCase().replaceAll("[^a-z0-9]", " ");
+		return title.toLowerCase().replaceAll("[^a-z0-9\\s]", "");
 	}
 	
 	public String getManufacturerLower() {

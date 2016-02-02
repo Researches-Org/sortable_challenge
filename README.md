@@ -54,7 +54,7 @@ The index of terms is a map object that maps terms found in the titles to listin
 
 <pre>
 public String getTitleLower() {
-	return title.toLowerCase().replaceAll("[^a-z0-9]", " ");
+	return title.toLowerCase().replaceAll("[^a-z0-9\\s]", "");
 }
 </pre> 
 
@@ -75,8 +75,8 @@ During this process, when a listing was already matched to an other product, the
 Each product object has attributes that store model and family strings in lower case with only digits, letters and spaces, as it was done with the listing title.
 
 <pre>
-this.modelLower = this.model.toLowerCase().replaceAll("[^a-z0-9]", " ");
-this.familyLower = this.family != null ? this.family.toLowerCase().replaceAll("[^a-z0-9]", " ") : null;
+this.modelLower = this.model.toLowerCase().replaceAll("[^a-z0-9\\s]", "");
+this.familyLower = this.family != null ? this.family.toLowerCase().replaceAll("[^a-z0-9\\s]", "") : null;
 </pre>
 
 When trying to find possible listing objects that match to a specific product, the algorithm does the following steps:
@@ -84,6 +84,11 @@ When trying to find possible listing objects that match to a specific product, t
 * Find listings that have the exact product term (mode/family).
 * Find listings that have the product term (model/family) without spaces.
 * Find listings that have all the terms of the product term (model/family), when the product term has white spaces.
+
+When a product term (model/family) has no spaces, to try to maximize the number of matches, the algorithm generate two sub-terms of the term for each position p from 1 to term.length() - 3, each two sub-terms are the substrings from 0 to index p and from index p + 1 to the end. Each sub-term will have at least two characters. Then, the algorithm finds all listings that contains each of these two sub-terms. For instance, the term DWFWE will have the following two sub-terms, and for each pair the algorithm will try to find the listings.
+
+* DW and FWE
+* DWF and WE
 
 At the end, the file results.txt is generated with all the results objects. Only products that have been matched to some listing are presented in the results.txt file.
 

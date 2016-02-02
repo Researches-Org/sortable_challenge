@@ -256,20 +256,26 @@ public class MatchingService {
 		}
 
 		if (term.indexOf(" ") != -1) {
-			result.addAll(listingsWithAllModelTerms(term,
-					indexOfTermsToListings));
+			result.addAll(listingsWithAllTerms(indexOfTermsToListings,
+					term.split(" ")));
+		} else {
+			for (int i = 1; i < term.length() - 2; i++) {
+				String[] terms = generateTerms(term, i);
+				result.addAll(listingsWithAllTerms(indexOfTermsToListings,
+						terms));
+			}
 		}
 
 		return result;
 	}
 
-	private Set<Listing> listingsWithAllModelTerms(String term,
-			Map<String, Set<Listing>> indexOfTermsToListings) {
+	private Set<Listing> listingsWithAllTerms(
+			Map<String, Set<Listing>> indexOfTermsToListings, String[] terms) {
+
 		Set<Listing> result = new HashSet<Listing>();
 
-		String[] terms = term.split(" ");
-
 		for (int i = 0; i < terms.length; i++) {
+
 			if (indexOfTermsToListings.containsKey(terms[i])) {
 
 				if (i == 0) {
@@ -285,4 +291,17 @@ public class MatchingService {
 
 		return result;
 	}
+
+	private String[] generateTerms(String term, int start) {
+		Set<String> terms = new HashSet<String>();
+		terms.add(term.substring(0, start + 1));
+
+		if (start + 1 < term.length()) {
+			terms.add(term.substring(start + 1));
+		}
+
+		return terms.toArray(new String[] {});
+
+	}
+
 }

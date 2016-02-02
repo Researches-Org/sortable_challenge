@@ -23,9 +23,9 @@ public class Product {
 
 		this.nameLower = this.product_name.toLowerCase();
 		this.manufacturerLower = this.manufacturer.toLowerCase();
-		this.modelLower = this.model.toLowerCase().replaceAll("[^a-z0-9]", " ");
+		this.modelLower = this.model.toLowerCase().replaceAll("[^a-z0-9\\s]", "");
 		this.familyLower = this.family != null ? this.family.toLowerCase()
-				.replaceAll("[^a-z0-9]", " ") : null;
+				.replaceAll("[^a-z0-9\\s]", "") : null;
 	}
 
 	public String getName() {
