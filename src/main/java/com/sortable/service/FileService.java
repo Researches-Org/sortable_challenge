@@ -1,14 +1,12 @@
 package com.sortable.service;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,29 +30,26 @@ public class FileService {
 
 		List<T> objects = new ArrayList<T>();
 
-		Scanner input = null;
-
 		try {
-			input = new Scanner(new File(file));
+			BufferedReader in = new BufferedReader(new FileReader(file));
 
-			while (true) {
-				String line = input.nextLine();
+			String line = null;
+
+			while ((line = in.readLine()) != null) {
 
 				T obj = gson.fromJson(line, classOfT);
 
 				objects.add(obj);
 			}
 
-		} catch (NoSuchElementException e) {
-			return objects;
-		} catch (FileNotFoundException e) {
-			System.err.println("File not found: " + file);
+			in.close();
+
+		} catch (IOException e) {
+			System.err.println("I/O excpetion reading file: " + file);
 			throw new RuntimeException(e);
-		} finally {
-			if (input != null) {
-				input.close();
-			}
 		}
+		
+		return objects;
 
 	}
 
