@@ -1,6 +1,0 @@
-1. What technologies/frameworks are used at Amazon? (for instance Spring is used?)
-2. In an archtectural point of view, DDD and microservices are used?
-3. How is the development process at Amazon?
-4. Is there a separation between front end and back end developers?
-5. Is it possible to work for other teams at Amazon in Seatle and Vancoucver?
-6. Is is porssible to move to other offices in other countries?
